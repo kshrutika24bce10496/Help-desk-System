@@ -1,14 +1,24 @@
-import java.sql.Connection;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        Connection con = DBConnection.getConnection();
+        Scanner sc = new Scanner(System.in);
+        UserDAO userDAO = new UserDAO();
 
-        if (con != null) {
-            System.out.println("Database Connected ✅");
-        } else {
-            System.out.println("Connection Failed ❌");
-        }
+        System.out.println("=== USER REGISTRATION ===");
+
+        System.out.print("Enter Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter Email: ");
+        String email = sc.nextLine();
+
+        System.out.print("Enter Password: ");
+        String password = sc.nextLine();
+
+        User user = new User(name, email, password);
+
+        userDAO.register(user);
     }
 }
