@@ -53,7 +53,12 @@ public class LoginUI {
                 UserDAO userDAO = new UserDAO();
 
                 if (userDAO.login(email, password)) {
-                    result.setText("Login Successful ");
+                    result.setText("Login Successful ✅");
+                    // Open dashboard
+                    new DashboardUI(email);
+
+                    // Close login window
+                    frame.dispose();
                 } else {
                     result.setText("Invalid Credentials ");
                 }
