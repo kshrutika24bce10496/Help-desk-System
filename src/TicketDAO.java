@@ -15,6 +15,7 @@ public class TicketDAO {
             ps.setString(2, ticket.title);
             ps.setString(3, ticket.description);
             ps.setString(4, ticket.status);
+            ps.setString(5, ticket.priority);
 
             ps.executeUpdate();
 
@@ -44,6 +45,53 @@ public class TicketDAO {
                 System.out.println("Title: " + rs.getString("title"));
                 System.out.println("Description: " + rs.getString("description"));
                 System.out.println("Status: " + rs.getString("status"));
+                System.out.println("Priority: " + rs.getString("priority"));
+                System.out.println("------------------------");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public void updateStatus(int ticketId, String status) {
+        try {
+            Connection con = DBConnection.getConnection();
+
+            String query = "UPDATE tickets SET status=? WHERE ticket_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setString(1, status);
+            ps.setInt(2, ticketId);
+
+            int rows = ps.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("Status Updated Successfully ✅");
+            } else {
+                System.out.println("Ticket not found ❌");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public void viewAllTickets() {
+        try {
+            Connection con = DBConnection.getConnection();
+
+            String query = "SELECT * FROM tickets";
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ResultSet rs = ps.executeQuery();
+
+            System.out.println("\n=== ALL TICKETS ===");
+
+            while (rs.next()) {
+                System.out.println("Ticket ID: " + rs.getInt("ticket_id"));
+                System.out.println("User: " + rs.getString("user_email"));
+                System.out.println("Title: " + rs.getString("title"));
+                System.out.println("Status: " + rs.getString("status"));
+                System.out.println("Priority: " + rs.getString("priority"));
                 System.out.println("------------------------");
             }
 
