@@ -7,8 +7,8 @@ public class TicketDAO {
     public void createTicket(Ticket ticket) {
         try {
             Connection con = DBConnection.getConnection();
-
-            String query = "INSERT INTO tickets (user_email, title, description, status) VALUES (?, ?, ?, ?)";
+            System.out.println("Priority selected: " + ticket.priority);
+            String query = "INSERT INTO tickets (user_email, title, description, status,priority) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setString(1, ticket.userEmail);
