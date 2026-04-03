@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -14,6 +15,7 @@ public class Main {
         int choice = sc.nextInt();
         sc.nextLine();
 
+        // 🔹 REGISTER
         if (choice == 1) {
 
             System.out.print("Enter Name: ");
@@ -27,8 +29,10 @@ public class Main {
 
             User user = new User(name, email, password);
             userDAO.register(user);
+        }
 
-        } else if (choice == 2) {
+        // 🔹 LOGIN
+        else if (choice == 2) {
 
             System.out.print("Enter Email: ");
             String email = sc.nextLine();
@@ -40,6 +44,58 @@ public class Main {
 
             if (success) {
                 System.out.println("Login Successful ✅");
+
+                TicketDAO ticketDAO = new TicketDAO();
+
+                System.out.println("\n1. Create Ticket");
+                System.out.println("2. View My Tickets");
+
+                System.out.print("Enter choice: ");
+                int option = sc.nextInt();
+                sc.nextLine();
+
+                // 🔹 CREATE TICKET
+                if (option == 1) {
+
+                    CategoryDAO categoryDAO = new CategoryDAO();
+                    ArrayList<Category> categories = categoryDAO.getAllCategories();
+
+                    System.out.println("Select Issue Type:");
+
+                    for (Category c : categories) {
+                        System.out.println(c.id + ". " + c.name);
+                    }
+
+                    System.out.print("Enter choice: ");
+                    int issueChoice = sc.nextInt();
+                    sc.nextLine();
+
+                    String title = "";
+
+                    for (Category c : categories) {
+                        if (c.id == issueChoice) {
+                            title = c.name;
+                            break;
+                        }
+                    }
+
+                    if (title.equals("")) {
+                        System.out.println("Invalid choice");
+                        return;
+                    }
+
+                    System.out.print("Enter Description: ");
+                    String desc = sc.nextLine();
+
+                    Ticket ticket = new Ticket(email, title, desc, "Open");
+                    ticketDAO.createTicket(ticket);
+                }
+
+                // 🔹 VIEW TICKETS
+                else if (option == 2) {
+                    ticketDAO.viewTickets(email);
+                }
+
             } else {
                 System.out.println("Invalid Credentials ❌");
             }
