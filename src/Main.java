@@ -7,6 +7,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         UserDAO userDAO = new UserDAO();
 
+
         System.out.println("=== HELP DESK SYSTEM ===");
         System.out.println("Press '1' to Register");
         System.out.println("Press '2' to Login");
@@ -45,8 +46,8 @@ public class Main {
 
             if (success) {
                 System.out.println("Login was Successful ");
-
                 TicketDAO ticketDAO = new TicketDAO();
+
 
                 System.out.println("\n1. Create a new Ticket");
                 System.out.println("2. View ALL the Tickets");
@@ -115,11 +116,11 @@ public class Main {
                 }
                 else if (choice == 3) {
 
-                    TicketDAO ticketDAO = new TicketDAO();
+                    TicketDAO ticketDAO1 = new TicketDAO();
 
                     System.out.println("\n=== ADMIN PANEL ===");
 
-                    ticketDAO.viewAllTickets();
+                    ticketDAO1.viewAllTickets();
 
                     System.out.print("Enter Ticket ID to update: ");
                     int id = sc.nextInt();
@@ -143,7 +144,7 @@ public class Main {
                         return;
                     }
 
-                    ticketDAO.updateStatus(id, status);
+                    ticketDAO1.updateStatus(id, status);
                 }
 
             } else {
